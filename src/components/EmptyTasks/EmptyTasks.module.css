@@ -1,0 +1,12 @@
+.emptyBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.4;
+    color: var(--gray-300);
+    gap: 1rem;
+}
+
+.paragraph>p:first-child {
+    font-weight: bold;
+}

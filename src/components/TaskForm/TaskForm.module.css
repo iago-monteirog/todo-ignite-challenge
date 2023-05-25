@@ -1,0 +1,80 @@
+.container {
+    width: 46rem;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: calc(0px - 1.5rem - 6px);
+}
+
+.form input {
+    height: 3.375rem;
+    width: 86%;
+    background: var(--gray-500);
+    border: 0;
+    border-radius: 8px;
+    color: var(--gray-100);
+    padding: 1rem;
+    line-height: 1.4;
+}
+
+.form button {
+    background: var(--dark-blue);
+    color: var(--gray-100);
+    padding: 1rem;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    transition: 0.1s ease-in-out background-color;
+}
+
+.form button:hover {
+    background: var(--blue);
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4rem;
+}
+
+.status p {
+    font-weight: bold;
+}
+
+.status span {
+    color: var(--gray-100);
+    background: var(--gray-400);
+    padding: 0.125rem 0.5rem;
+    border-radius: 50%;
+}
+
+.status>p:first-child {
+    color: var(--blue);
+}
+
+.status>p:last-child {
+    color: var(--purple);
+}
+
+.taskList {
+    width: 100%;
+    margin: 1.5rem 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--gray-400);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
