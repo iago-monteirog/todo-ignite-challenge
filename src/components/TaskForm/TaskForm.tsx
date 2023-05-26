@@ -2,21 +2,44 @@ import { PlusCircle } from '@phosphor-icons/react';
 import styles from './TaskForm.module.css';
 import { Task } from '../Task/Task';
 import { EmptyTask } from '../EmptyTasks/EmptyTasks';
-import { useState } from 'react';
-
-interface Task {
-    id: number;
-    content: string;
-}
-
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 export function TaskForm() {
-    const [tasks, setTasks] = useState<Task[]>([]);
+    const [tasks, setTasks] = useState<string[]>([]);
+    const [newTextTask, setNewTextTask] = useState<string>('');
+
+    function handleNewTextTaskChange(event: ChangeEvent<HTMLInputElement>) {
+        event.target.setCustomValidity('');
+
+        setNewTextTask(event.target.value);
+    }
+
+    function handleCreateNewTask(event: FormEvent) {
+        event.preventDefault();
+
+        setTasks([...tasks, newTextTask]);
+
+        setNewTextTask('');
+    }
+
+    function handleDeleteTask(task: string) {
+        const filterDeletedTask = tasks.filter(element => element !== task);
+
+        setTasks(filterDeletedTask);
+    }
 
     return (
         <div className={styles.container}>
-            <form className={styles.form}>
-                <input type="text" name="task" id="task" placeholder='Adicione uma nova tarefa' />
+            <form onSubmit={handleCreateNewTask} className={styles.form}>
+                <input
+                    type="text"
+                    name="task"
+                    id="task"
+                    placeholder='Adicione uma nova tarefa'
+                    required
+                    value={newTextTask}
+                    onChange={handleNewTextTaskChange}
+                />
                 <button type='submit'>
                     <span>Criar</span>
                     <PlusCircle size={20} />
@@ -24,18 +47,28 @@ export function TaskForm() {
             </form>
 
             <div className={styles.status}>
-                <p>Tarefas criadas <span>0</span></p>
+                <p>Tarefas criadas <span>{tasks.length}</span></p>
                 <p>Concluidas <span>0</span></p>
             </div>
 
             <div className={styles.taskList}>
-                {tasks.length > 0 && (
-                    tasks.map(task => {
-                        return <Task key={task.id} content={task.content} />
-                    })
+                {tasks.length === 0 && (
+                    <EmptyTask />
                 )}
 
-                <EmptyTask />
+                {tasks.map((task, index) => {
+                    if (tasks.length > 0) {
+                        return <Task
+                            key={task}
+                            id={index}
+                            content={task}
+                            onDeleteTask={handleDeleteTask}
+                        />
+                    } else {
+                        return <></>
+                    }
+                })}
+
             </div>
         </div>
     )

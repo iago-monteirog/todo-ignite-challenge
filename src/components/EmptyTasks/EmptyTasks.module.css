@@ -10,3 +10,29 @@
 .paragraph>p:first-child {
     font-weight: bold;
 }
+
+.status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4rem;
+}
+
+.status p {
+    font-weight: bold;
+}
+
+.status span {
+    color: var(--gray-100);
+    background: var(--gray-400);
+    padding: 0.125rem 0.5rem;
+    border-radius: 50%;
+}
+
+.status>p:first-child {
+    color: var(--blue);
+}
+
+.status>p:last-child {
+    color: var(--purple);
+}

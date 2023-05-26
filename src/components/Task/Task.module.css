@@ -38,6 +38,10 @@
     padding: 1px;
 }
 
+.taskBox input[type="checkbox"]:checked+p {
+    text-decoration: line-through;
+}
+
 .taskBox button {
     cursor: pointer;
     background: transparent;
@@ -50,4 +54,9 @@
 
 .taskBox button:hover {
     color: var(--danger);
+}
+
+.markedContent {
+    text-decoration: line-through;
+    color: var(--gray-300);
 }
