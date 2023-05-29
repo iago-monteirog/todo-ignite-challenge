@@ -7,6 +7,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 export function TaskForm() {
     const [tasks, setTasks] = useState<string[]>([]);
     const [newTextTask, setNewTextTask] = useState<string>('');
+    const [completedTasksCount, setCompletedTasksCount] = useState<number>(0);
 
     function handleNewTextTaskChange(event: ChangeEvent<HTMLInputElement>) {
         event.target.setCustomValidity('');
@@ -26,6 +27,14 @@ export function TaskForm() {
         const filterDeletedTask = tasks.filter(element => element !== task);
 
         setTasks(filterDeletedTask);
+    }
+
+    function handleTaskCompletion(isCompleted: boolean) {
+        if (isCompleted) {
+            setCompletedTasksCount(completedTasksCount + 1);
+        } else {
+            setCompletedTasksCount(completedTasksCount - 1);
+        }
     }
 
     return (
@@ -48,7 +57,7 @@ export function TaskForm() {
 
             <div className={styles.status}>
                 <p>Tarefas criadas <span>{tasks.length}</span></p>
-                <p>Concluidas <span>0</span></p>
+                <p>Concluidas <span>{completedTasksCount} de {tasks.length}</span></p>
             </div>
 
             <div className={styles.taskList}>
@@ -63,6 +72,7 @@ export function TaskForm() {
                             id={index}
                             content={task}
                             onDeleteTask={handleDeleteTask}
+                            onTaskCompletion={handleTaskCompletion}
                         />
                     } else {
                         return <></>

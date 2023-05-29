@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import styles from './Task.module.css';
 import { Trash } from '@phosphor-icons/react';
 
@@ -6,22 +6,23 @@ interface TaskProps {
     content: string;
     onDeleteTask: (task: string) => void;
     id: number;
+    onTaskCompletion: (isCompleted: boolean) => void;
 }
 
-export function Task({ content, onDeleteTask, id }: TaskProps) {
+export function Task({ content, onDeleteTask, id, onTaskCompletion }: TaskProps) {
     const [isChecked, setIsChecked] = useState<boolean>(false);
-    const [completedTasks, setCompletedTasks] = useState<string[]>([]);
 
     function handleDeleteTask() {
         onDeleteTask(content)
     }
 
-    function handleCheckBoxChange(event: ChangeEvent<HTMLInputElement>) {
+    function handleCheckBoxChange() {
+        const newCheckedValue = !isChecked;
+
         setIsChecked(!isChecked);
 
-        if (event.target.checked) {
-            setCompletedTasks([...completedTasks, event.target.value]);
-        }
+        onTaskCompletion(newCheckedValue);
+
     }
 
     const checkboxId = `taskCheckbox_${content}`;
